@@ -203,28 +203,6 @@ def main():
     fig = create_scatter_plot(df, selected_categories)
     st.plotly_chart(fig, use_container_width=True)
     
-    # Summary statistics
-    st.header("📊 Summary Statistics")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    for i, category in enumerate(selected_categories):
-        cat_data = df[df['Category'] == category]
-        
-        with [col1, col2, col3][i % 3]:
-            st.subheader(f"{category}")
-            st.metric("Countries", len(cat_data))
-            st.metric("Total Immigration", f"{cat_data['Immigration'].sum():,}")
-            st.metric("Avg Retention", f"{cat_data['Retention_percentage'].mean():.1f}%")
-            
-            # Top performers
-            top_retention = cat_data.loc[cat_data['Retention_percentage'].idxmax()]
-            top_immigration = cat_data.loc[cat_data['Immigration'].idxmax()]
-            
-            st.write("**Top Retention:**")
-            st.write(f"{top_retention['Citizenship']} ({top_retention['Retention_percentage']:.1f}%)")
-            st.write("**Most Immigration:**")
-            st.write(f"{top_immigration['Citizenship']} ({top_immigration['Immigration']:,})")
     
     # Data table
     st.header("📋 Detailed Data")
@@ -258,7 +236,7 @@ def main():
     
     # Footer
     st.markdown("---")
-    st.markdown("**Data Source:** Danish migration statistics (2024) | **Note:** Only countries with 500+ immigrants shown")
+    st.markdown("**Data Source:** Danish migration statistics (2015-2024) https://www.statbank.dk/VAN1AAR and https://www.statbank.dk/VAN2AAR| **Note:** Only countries with 500+ immigrants shown")
 
 if __name__ == "__main__":
     main()
